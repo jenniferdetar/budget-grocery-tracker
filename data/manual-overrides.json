@@ -1,16 +1,3 @@
 {
-  "items": [
-    {
-      "store": "Ralphs",
-      "chain": "Kroger",
-      "name": "Example item - replace me",
-      "category": "example",
-      "regularPrice": 5.99,
-      "salePrice": 3.99,
-      "unit": "each",
-      "validFrom": "2026-07-16",
-      "validTo": "2026-07-22",
-      "notes": "Delete this example and add real sales you spot in-store, in a mailer, or in an app that the automated scrapers missed."
-    }
-  ]
+  "items": []
 }
