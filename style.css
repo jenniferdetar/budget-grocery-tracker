@@ -15,6 +15,7 @@
   --store-vons: #e87ba4;
   --store-aldi: #eda100;
   --store-target: #1baf7a;
+  --store-cvs: #eb6834;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,6 +36,7 @@
     --store-vons: #d55181;
     --store-aldi: #c98500;
     --store-target: #199e70;
+    --store-cvs: #d95926;
   }
 }
 

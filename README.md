@@ -1,8 +1,8 @@
 # Budget Grocery Tracker
 
 A dashboard that tracks weekly grocery sales at local stores near 91335 (Ralphs,
-Albertsons, Vons, Aldi, and Target) so you can spot the best deals and stretch your
-budget further.
+Albertsons, Vons, Aldi, Target, and CVS) so you can spot the best deals and stretch
+your budget further.
 
 ## How it works
 
@@ -31,11 +31,11 @@ on every push to `main`, and it just fetches `data/sales.json` and renders it cl
 | Store | Source | Reliability |
 |---|---|---|
 | Ralphs | [Kroger's official Developer API](https://developer.kroger.com) | High - documented, authenticated, meant for this |
-| Albertsons, Vons, Aldi, Target | [Flipp](https://flipp.com) flyer aggregator | Best-effort - unofficial/reverse-engineered, may break |
+| Albertsons, Vons, Aldi, Target, CVS | [Flipp](https://flipp.com) flyer aggregator | Best-effort - unofficial/reverse-engineered, may break |
 | Any store | `data/manual-overrides.json` | Always works - you type it in |
 
-**Why not "real" scrapers for every store?** None of Albertsons, Aldi, or Target
-publish an official API for weekly ad data. Building scrapers against their
+**Why not "real" scrapers for every store?** None of Albertsons, Aldi, Target, or
+CVS publish an official API for weekly ad data. Building scrapers against their
 internal, undocumented endpoints would be fragile (they change without notice)
 and would mean going around anti-bot protections, which this project intentionally
 avoids. Instead it uses Flipp - a consumer flyer aggregator whose whole purpose is

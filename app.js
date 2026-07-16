@@ -4,6 +4,7 @@ const STORE_COLORS = {
   Vons: "var(--store-vons)",
   Aldi: "var(--store-aldi)",
   Target: "var(--store-target)",
+  CVS: "var(--store-cvs)",
 };
 
 const state = {

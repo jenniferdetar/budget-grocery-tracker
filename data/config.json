@@ -5,7 +5,8 @@
     { "chain": "Albertsons Companies", "banner": "Albertsons", "flippRetailerHint": "albertsons" },
     { "chain": "Albertsons Companies", "banner": "Vons", "flippRetailerHint": "vons" },
     { "chain": "Aldi", "banner": "Aldi", "flippRetailerHint": "aldi" },
-    { "chain": "Target", "banner": "Target", "flippRetailerHint": "target" }
+    { "chain": "Target", "banner": "Target", "flippRetailerHint": "target" },
+    { "chain": "CVS Health", "banner": "CVS", "flippRetailerHint": "cvs" }
   ],
   "categories": [
     "milk",
