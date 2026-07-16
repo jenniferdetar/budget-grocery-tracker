@@ -30,6 +30,7 @@ function extractItems(payload) {
   // Flipp's response shape has varied across reverse-engineering write-ups; try the
   // known candidates rather than assuming one fixed structure.
   if (Array.isArray(payload)) return payload;
+  if (Array.isArray(payload?.ecom_items)) return payload.ecom_items;
   if (Array.isArray(payload?.items)) return payload.items;
   if (Array.isArray(payload?.data?.items)) return payload.data.items;
   return [];
@@ -82,7 +83,13 @@ async function searchTerm(term) {
   const res = await fetchWithRetry(url, { headers: HEADERS });
   const payload = await res.json();
   if (DEBUG) {
-    console.log(`[flipp] sample payload for "${term}":`, JSON.stringify(payload).slice(0, 500));
+    const sample = (payload?.ecom_items || []).slice(0, 2).map(({ image_url, ...rest }) => rest);
+    const retailerFacet = (payload?.facets?.filters || []).find((f) =>
+      /retailer|merchant|store/i.test(f?.name || f?.id || "")
+    );
+    console.log(
+      `[flipp] debug "${term}": topLevelKeys=${Object.keys(payload || {}).join(",")} sampleItems=${JSON.stringify(sample)} retailerFacet=${JSON.stringify(retailerFacet)?.slice(0, 400)}`
+    );
   }
   return extractItems(payload);
 }
