@@ -1,8 +1,8 @@
 # Budget Grocery Tracker
 
 A dashboard that tracks weekly grocery sales at local stores near 91335 (Ralphs,
-Albertsons, Vons, Aldi, Target, and CVS) so you can spot the best deals and stretch
-your budget further.
+Albertsons, Vons, Aldi, Target, CVS, and Costco) so you can spot the best deals and
+stretch your budget further.
 
 ## How it works
 
@@ -31,16 +31,21 @@ on every push to `main`, and it just fetches `data/sales.json` and renders it cl
 | Store | Source | Reliability |
 |---|---|---|
 | Ralphs | [Kroger's official Developer API](https://developer.kroger.com) | High - documented, authenticated, meant for this |
-| Albertsons, Vons, Aldi, Target, CVS | [Flipp](https://flipp.com) flyer aggregator | Best-effort - unofficial/reverse-engineered, may break |
+| Albertsons, Vons, Aldi, Target, CVS, Costco | [Flipp](https://flipp.com) flyer aggregator | Best-effort - unofficial/reverse-engineered, may break |
 | Any store | `data/manual-overrides.json` | Always works - you type it in |
 
-**Why not "real" scrapers for every store?** None of Albertsons, Aldi, Target, or
-CVS publish an official API for weekly ad data. Building scrapers against their
+**Why not "real" scrapers for every store?** None of Albertsons, Aldi, Target,
+CVS, or Costco publish an official API for weekly ad data. Building scrapers against their
 internal, undocumented endpoints would be fragile (they change without notice)
 and would mean going around anti-bot protections, which this project intentionally
 avoids. Instead it uses Flipp - a consumer flyer aggregator whose whole purpose is
 publishing weekly ads for these chains - as a single best-effort source, and falls
 back gracefully (see below) when that doesn't work.
+
+**Note on Costco:** Costco doesn't run traditional weekly-ad flyers (it's
+membership-based and mostly relies on its monthly coupon book), so Flipp may not
+have much - or anything - listed for it. `data/manual-overrides.json` is likely
+the more realistic way to track Costco deals.
 
 **Graceful degradation:** every scraper is wrapped so a broken/blocked source never
 fails the whole pipeline - it just contributes zero items that day, and the daily
