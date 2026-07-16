@@ -5,7 +5,12 @@ on:
     # 13:00 UTC ≈ 6am Pacific. Adjust to taste - this repo has no other automation
     # depending on timing, so any once-a-day slot works.
     - cron: "0 13 * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      flipp_debug:
+        description: "Log a sample of Flipp's raw response per category (for debugging scripts/scrape-flipp.mjs)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -32,7 +37,9 @@ jobs:
           KROGER_CLIENT_SECRET: ${{ secrets.KROGER_CLIENT_SECRET }}
         run: node scripts/scrape-kroger.mjs
 
-      - name: Fetch Albertsons/Vons/Aldi/Target sales (Flipp, best-effort)
+      - name: Fetch Albertsons/Vons/Aldi/Target/CVS sales (Flipp, best-effort)
+        env:
+          FLIPP_DEBUG: ${{ inputs.flipp_debug && '1' || '0' }}
         run: node scripts/scrape-flipp.mjs
 
       - name: Merge into data/sales.json
