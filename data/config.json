@@ -1,0 +1,43 @@
+{
+  "zip": "91335",
+  "stores": [
+    { "chain": "Kroger", "banner": "Ralphs", "flippRetailerHint": "ralphs" },
+    { "chain": "Albertsons Companies", "banner": "Albertsons", "flippRetailerHint": "albertsons" },
+    { "chain": "Albertsons Companies", "banner": "Vons", "flippRetailerHint": "vons" },
+    { "chain": "Aldi", "banner": "Aldi", "flippRetailerHint": "aldi" },
+    { "chain": "Target", "banner": "Target", "flippRetailerHint": "target" }
+  ],
+  "categories": [
+    "milk",
+    "eggs",
+    "bread",
+    "cheese",
+    "yogurt",
+    "chicken",
+    "ground beef",
+    "pork",
+    "bacon",
+    "salmon",
+    "shrimp",
+    "bananas",
+    "apples",
+    "avocado",
+    "tomatoes",
+    "lettuce",
+    "potatoes",
+    "onions",
+    "cereal",
+    "coffee",
+    "pasta",
+    "rice",
+    "peanut butter",
+    "frozen pizza",
+    "ice cream",
+    "chips",
+    "soda",
+    "juice",
+    "paper towels",
+    "toilet paper",
+    "diapers"
+  ]
+}

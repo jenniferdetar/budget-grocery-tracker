@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grocery Sales Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="page-header">
+    <div class="header-text">
+      <h1>Grocery Sales Dashboard</h1>
+      <p class="subtitle">Tracking sales at Ralphs, Albertsons, Vons, Aldi &amp; Target near 91335</p>
+    </div>
+    <p class="updated-at" id="updated-at">Loading…</p>
+  </header>
+
+  <section class="stats-row" id="stats-row" aria-label="Summary stats"></section>
+
+  <section class="controls" aria-label="Filters">
+    <input
+      type="search"
+      id="search-input"
+      placeholder="Search items (e.g. chicken, milk)…"
+      aria-label="Search items"
+    />
+
+    <div class="store-filters" id="store-filters" role="group" aria-label="Filter by store"></div>
+
+    <select id="sort-select" aria-label="Sort by">
+      <option value="discount-desc">Biggest discount first</option>
+      <option value="price-asc">Lowest price first</option>
+      <option value="expiring-soon">Expiring soon first</option>
+      <option value="name-asc">Name (A–Z)</option>
+    </select>
+  </section>
+
+  <main>
+    <p class="empty-state" id="empty-state" hidden></p>
+    <div class="card-grid" id="card-grid"></div>
+  </main>
+
+  <footer class="page-footer">
+    <p>
+      Data comes from the official Kroger API (Ralphs), a best-effort Flipp flyer lookup
+      (Albertsons, Vons, Aldi, Target), and items you add by hand in
+      <code>data/manual-overrides.json</code>. Always confirm price and availability in-store
+      or in the store's own app before you shop — automated sources can be stale or wrong.
+    </p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

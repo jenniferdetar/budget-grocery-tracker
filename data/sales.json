@@ -1,0 +1,26 @@
+{
+  "updatedAt": "2026-07-16T17:43:35.228Z",
+  "sources": {
+    "krogerApi": 0,
+    "flipp": 0,
+    "manual": 1
+  },
+  "items": [
+    {
+      "store": "Ralphs",
+      "chain": "Kroger",
+      "name": "Example item - replace me",
+      "category": "example",
+      "regularPrice": 5.99,
+      "salePrice": 3.99,
+      "discountPercent": 33.39,
+      "unit": "each",
+      "validFrom": "2026-07-16",
+      "validTo": "2026-07-22",
+      "imageUrl": null,
+      "source": "manual",
+      "sourceUrl": null,
+      "notes": "Delete this example and add real sales you spot in-store, in a mailer, or in an app that the automated scrapers missed."
+    }
+  ]
+}

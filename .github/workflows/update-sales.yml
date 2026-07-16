@@ -1,0 +1,51 @@
+name: Update sales data
+
+on:
+  schedule:
+    # 13:00 UTC ≈ 6am Pacific. Adjust to taste - this repo has no other automation
+    # depending on timing, so any once-a-day slot works.
+    - cron: "0 13 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-sales
+  cancel-in-progress: false
+
+jobs:
+  scrape-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Fetch Ralphs sales (Kroger official API)
+        env:
+          KROGER_CLIENT_ID: ${{ secrets.KROGER_CLIENT_ID }}
+          KROGER_CLIENT_SECRET: ${{ secrets.KROGER_CLIENT_SECRET }}
+        run: node scripts/scrape-kroger.mjs
+
+      - name: Fetch Albertsons/Vons/Aldi/Target sales (Flipp, best-effort)
+        run: node scripts/scrape-flipp.mjs
+
+      - name: Merge into data/sales.json
+        run: node scripts/merge-data.mjs
+
+      - name: Commit updated data if it changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/sales.json data/kroger-raw.json data/flipp-raw.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update sales data"
+            git push
+          fi
