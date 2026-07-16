@@ -129,6 +129,8 @@ function sortItems(items) {
   switch (state.sort) {
     case "price-asc":
       return sorted.sort((a, b) => (a.salePrice ?? Infinity) - (b.salePrice ?? Infinity));
+    case "unit-price-asc":
+      return sorted.sort((a, b) => (a.costPerOunce ?? Infinity) - (b.costPerOunce ?? Infinity));
     case "expiring-soon":
       return sorted.sort((a, b) => {
         if (!a.validTo) return 1;
@@ -141,6 +143,11 @@ function sortItems(items) {
     default:
       return sorted.sort((a, b) => (b.discountPercent ?? -1) - (a.discountPercent ?? -1));
   }
+}
+
+function formatCostPerOunce(value) {
+  if (value == null) return null;
+  return value < 0.1 ? `$${value.toFixed(3)}/oz` : `$${value.toFixed(2)}/oz`;
 }
 
 function formatDateRange(validFrom, validTo) {
@@ -193,6 +200,7 @@ function renderCard(item) {
       ? `<span class="regular-price">$${item.regularPrice.toFixed(2)}</span>`
       : "";
   const dateRange = formatDateRange(item.validFrom, item.validTo);
+  const unitPrice = formatCostPerOunce(item.costPerOunce);
 
   return `
     <article class="item-card">
@@ -210,6 +218,7 @@ function renderCard(item) {
         ${regularPrice}
         ${item.unit ? `<span class="item-unit">${escapeHtml(item.unit)}</span>` : ""}
       </div>
+      ${unitPrice ? `<div class="unit-price">${unitPrice}</div>` : ""}
       ${dateRange ? `<div class="valid-dates">${dateRange}</div>` : ""}
       <div class="source-tag">${SOURCE_LABELS[item.source] || item.source}</div>
     </article>`;

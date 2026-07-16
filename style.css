@@ -259,6 +259,12 @@ main {
   font-size: 0.85rem;
 }
 
+.unit-price {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
 .valid-dates {
   color: var(--text-secondary);
   font-size: 0.8rem;

@@ -2,7 +2,7 @@
 // single data/sales.json file the dashboard reads.
 
 import fs from "node:fs";
-import { dedupe, makeItem } from "./lib/normalize.mjs";
+import { costPerOunce, dedupe, discountPercent, makeItem } from "./lib/normalize.mjs";
 
 function readJsonIfExists(url, fallback) {
   try {
@@ -22,11 +22,19 @@ const manualItems = (manualRaw.items || []).map((item) =>
   makeItem({ ...item, source: "manual" })
 );
 
-const merged = dedupe([...krogerItems, ...flippItems, ...manualItems]).sort((a, b) => {
-  const ad = a.discountPercent ?? -1;
-  const bd = b.discountPercent ?? -1;
-  return bd - ad;
-});
+// Recompute discountPercent/costPerOunce fresh for every item, regardless of when it was
+// scraped - so items fetched before costPerOunce existed pick it up without a re-scrape.
+const merged = dedupe([...krogerItems, ...flippItems, ...manualItems])
+  .map((item) => ({
+    ...item,
+    discountPercent: discountPercent(item.regularPrice, item.salePrice),
+    costPerOunce: costPerOunce(item.salePrice, item.unit, item.name),
+  }))
+  .sort((a, b) => {
+    const ad = a.discountPercent ?? -1;
+    const bd = b.discountPercent ?? -1;
+    return bd - ad;
+  });
 
 const output = {
   updatedAt: new Date().toISOString(),

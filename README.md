@@ -87,7 +87,7 @@ a store Flipp doesn't cover well). Edit `data/manual-overrides.json`:
       "category": "meat",
       "regularPrice": 4.99,
       "salePrice": 2.99,
-      "unit": "per lb",
+      "unit": "1 lb",
       "validFrom": "2026-07-16",
       "validTo": "2026-07-22",
       "notes": "Saw this in-store, not on Ralphs' digital ad"
@@ -98,6 +98,19 @@ a store Flipp doesn't cover well). Edit `data/manual-overrides.json`:
 
 Commit the change (or let the next scheduled run pick it up - manual entries are
 always merged in alongside the automated sources).
+
+### Cost per ounce
+
+Every item shows a `$/oz` figure when its size can be parsed - either from a
+dedicated size field (Kroger always provides one, e.g. `"16 OZ"`, `"2 LB"`, `"2
+liter"`) or, failing that, from weight/volume mentioned in the product name
+(common for Flipp results, e.g. `"...6 MegaRolls"`). Fluid ounces are treated as
+equivalent to weight ounces for comparison purposes - a standard simplification,
+not a strict conversion. Items with no parseable size (most count-based products,
+like "12 CT") just don't show one. Sort by "Lowest cost per ounce first" to
+compare package sizes directly. For manual entries, write the `unit` field as a
+plain number + unit (`"1 lb"`, `"16 oz"`, `"2 liter"`) rather than something like
+`"each"` or `"per lb"` if you want it to compute.
 
 ## Customizing
 
